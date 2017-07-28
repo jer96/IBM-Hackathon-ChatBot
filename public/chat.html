@@ -1,0 +1,94 @@
+<html>
+<head>
+  <base href="/">
+  <title>apertus colloquium</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:image" content="conversation.svg" />
+  <meta property="og:title" content="Conversation Chat Simple" />
+  <meta property="og:description" content="Sample application that shows how to use the Conversation API to identify user intents" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div id="view-change-button" class="button" onclick="PayloadPanel.togglePanel(event, this)">
+    <img class="option full" src="../img/Chat Button.png">
+    <img class="option not-full" src="../img/Code Button.png">
+  </div>
+  <div id="contentParent" class="responsive-columns-wrapper">
+    <div id="chat-column-holder" class="responsive-column content-column">
+      <div class="chat-column">
+        <div id="scrollingChat"></div>
+        <label for="textInput" class="inputOutline">
+          <input id="textInput" class="input responsive-column"
+            placeholder="Type something" type="text"
+            onkeydown="ConversationPanel.inputKeyDown(event, this)">
+        </label>
+      </div>
+    </div>
+    <div id="payload-column" class="fixed-column content-column">
+      <div id="payload-initial-message">
+        Type something to see the output
+      </div>
+      <div id="payload-request" class="payload"></div>
+      <div id="payload-response" class="payload"></div>
+    </div>
+  </div>
+  <div class="information">
+    <h2>Information</h2>
+    <p>
+      
+    </p>
+    <button>Reset Information</button>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/conversation.js"></script>
+  <script src="js/payload.js"></script>
+  <script src="js/global.js"></script>
+  <script>
+  var updateInformation = function(){
+    $(window).ready(function(){
+      console.log(window.sessionStorage.email);
+      $.ajax("/profile/data",{
+        dataType: 'json',
+        timeout:5000000,
+        type:"post",
+        data:{
+          email : window.sessionStorage.email
+        },
+        success:function(data,status,xhr){
+          strJSON = JSON.stringify(data);
+          $(".information p").text(strJSON);
+        },
+        error:function(jqXhr,textStatus,errorMessage){
+          console.log(errorMessage);
+        }
+      });
+    });
+  };
+  setTimeout(updateInformation, 300);
+  $(".information button").click(function(){
+    $.ajax("/profile/data/deleteContext",{
+        dataType: 'json',
+        timeout:5000000,
+        type:"post",
+        data:{
+          "email":window.sessionStorage.email
+        },
+        success:function(data,status,xhr){
+          console.log(data);
+          window.location.reload();
+        },
+        error:function(jqXhr,textStatus,errorMessage){
+          console.log(errorMessage);
+        }
+    });
+  })
+  </script>
+
+
+</body>
+</html>

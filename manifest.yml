@@ -1,0 +1,6 @@
+---
+applications:
+ - name: apertus-colloquium
+   random-route: true
+   memory: 256M
+   instances: 2

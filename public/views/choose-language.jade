@@ -1,0 +1,12 @@
+html  
+  include head
+  body#choose-language
+      div.container
+        form(method="POST" action="/landing")
+          select.language-field(name="language-select")
+            each language, i in languages
+              option(name="language",value=language) #{language}
+          button.submit-lang(type="submit") Select
+        include footer
+
+    

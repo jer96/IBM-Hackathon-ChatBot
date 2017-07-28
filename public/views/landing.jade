@@ -1,0 +1,56 @@
+html  
+  include head
+  body#landing
+      div.container
+        div.row.title.hidden
+            div.col-xs-12
+                h2 Watson is here to help you with your immigration process.
+        div.row.language
+            h3 Watson 
+                span.immig Immigration
+            .language-wrap
+                    each language, i in languages
+                      .language-option-wrap.col-xs-6.col-md-4
+                        .language-option(name="language",value=language) #{language}
+                //- button.submit-lang.submit-button(type="submit") Select
+        div.row.login-choice.hidden
+            .login-wrap.col-xs-12
+                .login-option.create Create an Account
+            .login-wrap.col-xs-12
+                .login-option.login Log in
+        form.new-user-submission.hidden(method="POST" action="/profile/create")
+            div.row.email-container.input-container
+                div.col-xs-12
+                    div.input-wrap
+                        input.current(type="text" placeholder="Email" required="required" name="_id")
+            div.row.password-container.input-container
+                div.col-xs-12
+                    div.input-wrap            
+                        input(type="password" placeholder="Password" required="required" name="password")
+            div.row.submit-container
+                div.col-xs-12
+                    button.submit-button.disabled(type="submit") Create
+        form.existing-user-submission.hidden(method="POST" action="/profile/getUser")
+            div.row.email-container.input-container
+                div.col-xs-12
+                    div.input-wrap
+                        input.current(type="text" placeholder="Email" required="required" name="_id")
+            div.row.password-container.input-container
+                div.col-xs-12
+                    div.input-wrap   
+                        input(type="password" placeholder="Password" required="required" name="password")
+            div.row.submit-container
+                div.col-xs-12
+                    button.submit-button.disabled(type="submit") Log in
+        div.row.existing-user.hidden
+            div.col-xs-12
+                h4 Existing User? 
+                    a.existing-user-click(href="#") Log in.
+        div.row.new-user.hidden
+            div.col-xs-12
+                    h4 New User? 
+                        a.new-user-click(href="#") Create an account. 
+        include footer
+        script(type="text/javascript" src="../js/setLang.js")
+
+    

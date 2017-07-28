@@ -1,0 +1,54 @@
+html  
+  include head
+  body#landing
+      div.container
+        div.row.title.hidden
+            div.col-xs-12
+                h2 Watson is here to help you with your immigration process.
+        div.row.title-new.white
+            div.col-xs-12
+                if wrong_user
+                    h2.unknown-user Watson doesn't recognize this user.
+                else
+                    if incorrect_pw
+                        h2.help Watson is here to help!
+                            h3.incorrect-pw Your password is incorrect. 
+                                a.lost-password(href="#") Maybe you forgot your password?
+                    else
+                        h2.already-user Watson noticed you already started the immigration process. Let's pick up where you left off!
+        form.new-user-submission.hidden(method="POST" action="/profile/create")
+            div.row.email-container.input-container
+                div.col-xs-12
+                    div.input-wrap
+                        input.current(type="text" placeholder="Email" required="required" name="_id")
+            div.row.password-container.input-container
+                div.col-xs-12
+                    div.input-wrap            
+                        input(type="password" placeholder="Password" required="required" name="password")
+            div.row.submit-container
+                div.col-xs-12
+                    button.submit-button.disabled(type="submit") Create
+        form.existing-user-submission(method="POST" action="/profile/getUser")
+            div.row.email-container.input-container
+                div.col-xs-12
+                    div.input-wrap
+                        input.current(type="text" placeholder="Email" required="required" name="_id")
+            div.row.password-container.input-container
+                div.col-xs-12
+                    div.input-wrap   
+                        input(type="password" placeholder="Password" required="required" name="password")
+            div.row.submit-container
+                div.col-xs-12
+                    button.submit-button.disabled(type="submit") Login
+        div.row.existing-user.hidden
+            div.col-xs-12
+                h4 Existing User? 
+                    a.existing-user-click(href="#") Log in.
+        div.row.new-user
+            div.col-xs-12
+                    h4 New User?  
+                        a.new-user-click(href="#") Create an account.
+        include footer
+        script(type="text/javascript" src="../js/loginPage.js")
+
+    
