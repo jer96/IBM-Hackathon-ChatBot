@@ -24,5 +24,5 @@ This project was a developed during the 2017 IBM BlueHack at IBM Mass Lab in Lit
 
 ## Resources
 - [Business Pitch and Demo](https://www.youtube.com/watch?v=618qJOPiPeg)
-- [Presentation]()
+- [Presentation](https://github.com/jer96/IBM-Hackathon-ChatBot/blob/master/apertus_colloquium.pdf)
 
