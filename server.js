@@ -249,7 +249,6 @@ app.post('/profile/update', function (request, response) {
   });
 });
 
-
 // POST login user
 app.post('/profile/getUser', function (request, response) {
   var key = request.body._id;
@@ -295,10 +294,6 @@ function getLang (lang) {
 
 // TODO can moodify to have the ability to use as a waterfall function
 function updateUserContext (email, resp) {
-  //console.log('*******************');
-  //console.log(resp);
-  //console.log('*******************');
-
   var userData = {
     _id : email,
     input : resp.input,
@@ -308,10 +303,6 @@ function updateUserContext (email, resp) {
   userDataDb.get(email, function (err, data) {
     if (!err) {
       console.log(data);
-      for (var i = 0 ; i < data.output.nodes_visited.length; i++) {
-        if (resp.context.system._node_output_map[data.output.nodes_visited[i]]) {
-          console.log('setting up');
-         userData.prevNode = data.output.nodes_visited[i];
       if (data.output.nodes_visited){
         for (var i = 0 ; i < data.output.nodes_visited.length; i++) {
           if (resp.context.system._node_output_map[data.output.nodes_visited[i]]) {
@@ -329,7 +320,6 @@ function updateUserContext (email, resp) {
           console.log('updated data');
          return 'success';
         }
-
       });
     }
     else {
@@ -359,21 +349,9 @@ app.post("/profile/data", function (request, response) {
   console.log(request);
   userDataDb.get(request.body.email, function (err, data) {
     if (err) {
-      /*userData._rev = data._rev;
-      userDataDb.insert(userData, function (err) {
-        if (err) {
-          return err.message;
-        }
-        else {
-          console.log('updated data');
-          response.send(data.context);
-        }
-      });*/
-      console.log('what is wrong');
       response.send({nothing : 'ok'});
     }
     else {
-      console.log('we should be ok');
       console.log(data.context);
       response.send(data.context);
     }
@@ -381,8 +359,6 @@ app.post("/profile/data", function (request, response) {
 });
 
 app.post("/profile/data/deleteContext", function (request, response) {
-
-  console.log(request);
   var userData = {
     _id : request.body.email,
     input : {},
@@ -397,11 +373,9 @@ app.post("/profile/data/deleteContext", function (request, response) {
       userData._rev = data._rev;
       userDataDb.insert(userData, function (err, resp) {
         if (err) {
-          //console.log('fail');
           response.send({fail : 'ok'});
         }
         else {
-          //console.log('succes');
           response.send({success : 'ok'});
         }
       });
